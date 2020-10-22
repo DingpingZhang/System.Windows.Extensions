@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Windows.Input;
 using WpfExtensions.Infrastructure.Commands;
 using WpfExtensions.Xaml;
+using BindableBase = WpfExtensions.Infrastructure.Mvvm.BindableBase;
 
 namespace WpfApp.Net462.ViewModels
 {
@@ -13,6 +14,8 @@ namespace WpfApp.Net462.ViewModels
 
         private bool _isLoading;
         private string _inputText;
+        private string _width;
+        private string _height;
 
         public bool IsLoading
         {
@@ -25,6 +28,20 @@ namespace WpfApp.Net462.ViewModels
             get => _inputText;
             set => SetProperty(ref _inputText, value);
         }
+
+        public string Width
+        {
+            get => _width;
+            set => SetProperty(ref _width, value);
+        }
+
+        public string Height
+        {
+            get => _height;
+            set => SetProperty(ref _height, value);
+        }
+
+        public double ComputedResult => Computed(() => double.Parse(Width) * double.Parse(Height), fallback: double.NaN);
 
         public ICommand LoadCommand { get; }
 
